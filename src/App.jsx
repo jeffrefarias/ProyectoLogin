@@ -1,17 +1,30 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import Registro from './components/Registro';
+import SocialButton from './components/SocialButton';
+// import { brotliDecompress } from 'zlib';
+import Alert from './components/Alert';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Registro from './components/Registro'
-import './App.css'
-
 function App() {
- 
+  // const [alertMessage, setAlertMessage] = useState('');
+  // const [alertType, setAlertType] = useState('');
+
+  // const handleRegistration = (message, type) => {
+  //   setAlertMessage(message);
+  //   setAlertType(type);
+  // };
+
   return (
-    <>
-      
-       <Registro/>
-    </>
-  )
+    <div>
+      <SocialButton/>
+      <Registro/>
+      {/* <Alert message={alertMessage} type={alertType} /> */}
+    </div>
+  );
 }
 
-export default App
+
+
+export default App;

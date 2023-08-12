@@ -7,9 +7,12 @@ const Formulario = () => {
   const [password, setPass] = useState("");
   const [cpassword, setCPass] = useState("");
   const [error, setError] = useState(false)
+  const [errorEmail, setErrorEmail] = useState(false)
 
   const validarDatos = (e) => {
     e.preventDefault()
+
+    setErrorEmail(!validarEmail(email));
 
     if (nombre === '' || email === '' || password === '' || cpassword === '') {
       setError(true)
@@ -20,6 +23,7 @@ const Formulario = () => {
     setEmail('')
     setPass('')
     setCPass('')
+    setErrorEmail
   }
 
   const validarEmail = (email) => {
@@ -35,7 +39,7 @@ const Formulario = () => {
     
       <form className="formulario" onSubmit={validarDatos}>
       {error ?  <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
-      {error ?  <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
+      {errorEmail ?  <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
        
         
         <div className="row form-group d-flex mt-3">
@@ -67,7 +71,7 @@ const Formulario = () => {
         <div className="row form-group d-flex mt-3 ">
           <div>
             <select className="form-select" aria-label="Seleccione su género">
-            <option selected>Seleccione su género</option>
+            <option selected name="select">Seleccione su género</option>
             <option value="hombre">Hombre</option>
             <option value="mujer">Mujer</option>
             <option value="transexual">Transexual</option>
