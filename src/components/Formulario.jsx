@@ -15,7 +15,7 @@ const Formulario = () => {
     e.preventDefault()
 
     setErrorEmail(!validarEmail(email));
-    setEdadError(!validarEdad(edad));
+    // setEdadError(!validarEdad(edad));
 
     if (nombre === '' || email === '' || password === '' || cpassword === '' || edad === '') {
       setError(true)
@@ -31,6 +31,8 @@ const Formulario = () => {
     
   }
 
+  
+
   const validarEmail = (email) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
@@ -41,6 +43,11 @@ const Formulario = () => {
     return agePattern .test(edad);
   };
 
+  if (password !== cpassword) {
+    setError(true);
+    return;
+  }
+
   const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email))  || password !== "" || cpassword !== "";
 
   return (
@@ -48,7 +55,7 @@ const Formulario = () => {
     
       <form className="formulario" onSubmit={validarDatos}>
       {error ?  <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
-      {errorEmail ?  <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
+      {errorEmail ?  <Alert message="Debe ingresar un email válido" type="danger" show={!validarEmail(email)} /> : null}
       {edadError ?  <Alert message="Debe ser mayor a 18 años" type="danger" show={error && !validarEdad(edad)} /> : null}
        
         
