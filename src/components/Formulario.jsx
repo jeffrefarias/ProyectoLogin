@@ -10,55 +10,69 @@ const Formulario = () => {
   const [cpassword, setCPass] = useState("");
   const [error, setError] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
+  const [errorPass, setErrorPass] = useState(false)
+  // const [selectedGender, setSelectedGender] = useState("");
+  // const [errorGenero, setErrorGenero] = useState(false);
+
+
+
 
   const validarDatos = (e) => {
     e.preventDefault()
 
     setErrorEmail(!validarEmail(email));
-    // setEdadError(!validarEdad(edad));
+    setEdadError(!validarEdad(edad));
+    setErrorPass(!validarPass(password, cpassword));
+    // setErrorGenero(selectedGender);
+
 
     if (nombre === '' || email === '' || password === '' || cpassword === '' || edad === '') {
       setError(true)
       return
     }
-    setError(false)
-    setNombre('')
-    setEdad('')
-    setEmail('')
-    setPass('')
-    setCPass('')
-    setErrorEmail('')
-    
+    setError(false);
+    setNombre('');
+    setEdad('');
+    setEmail('');
+    setPass('');
+    setCPass('');
+    setErrorEmail(false);
+    // setErrorGenero(false);
+    // setSelectedGender('');
   }
 
-  
 
+  // Expresión regular para email 
   const validarEmail = (email) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
   };
-
+  //  Expresion regular para validar +18
   const validarEdad = (edad) => {
     const agePattern = /^(1[89]|[2-9]\d|\d{3,})$/;
-    return agePattern .test(edad);
+    return agePattern.test(edad);
   };
 
-  if (password !== cpassword) {
-    setError(true);
-    return;
-  }
+  const validarPass = (password, cpassword) => {
+    return password === cpassword
+  };
 
-  const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email))  || password !== "" || cpassword !== "";
+  // const validarGenero = (genero) => {
+  //   return genero !== "";
+  // };
+
 
   return (
     <>
-    
+
       <form className="formulario" onSubmit={validarDatos}>
-      {error ?  <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
-      {errorEmail ?  <Alert message="Debe ingresar un email válido" type="danger" show={!validarEmail(email)} /> : null}
-      {edadError ?  <Alert message="Debe ser mayor a 18 años" type="danger" show={error && !validarEdad(edad)} /> : null}
-       
-        
+        {error ? <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
+        {errorEmail ? <Alert message="Debe ingresar un email válido" type="danger" show={!validarEmail(email)} /> : null}
+        {edadError ? <Alert message="Debe ser mayor a 18 años" type="danger" show={!validarEdad(edad)} /> : null}
+        {errorPass ? <Alert message="Ambas contraseñas deben coincidir " type="danger" show={!validarPass(password, cpassword)} /> : null}
+        {/* {errorGenero ? <Alert message="Debe seleccionar un genero" type="danger" show={!validarGenero(selectedGender)} /> : null} */}
+
+
         <div className="row form-group d-flex mt-3">
           <div className="col">
             <input
@@ -100,19 +114,28 @@ const Formulario = () => {
         </div>
         <div className="row form-group d-flex mt-3 ">
           <div>
-            <select className="form-select" aria-label="Seleccione su género">
-            <option selected name="select">Seleccione su género</option>
-            <option value="hombre">Hombre</option>
-            <option value="mujer">Mujer</option>
-            <option value="transexual">Transexual</option>
-            <option value="helicoptero">Helicóptero Apache</option>
-          </select>
+            <select
+              id="genero"
+              className="form-select"
+              aria-label="Seleccione su género"
+              // value={selectedGender}
+              // onChange={(e) => {
+              //   setSelectedGender(e.target.value);
+              //   setError(false);
+              // }}
+            >
+              <option disabled value="">Seleccione su género</option>
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
+              <option value="transexual">Transexual</option>
+              <option value="helicoptero">Helicóptero Apache</option>
+            </select>
           </div>
         </div>
         <div className="row form-group d-flex mt-3">
           <div className="col">
             <input
-              type="text"
+              type="password"
               name="password"
               className="form-control"
               onChange={(e) => setPass(e.target.value)}
@@ -122,10 +145,10 @@ const Formulario = () => {
             />
           </div>
         </div>
-        <div className=" row form-group d-flex mt-3">    
+        <div className=" row form-group d-flex mt-3">
           <div className="col">
             <input
-              type="text"
+              type="password"
               name="cpassword"
               className="form-control"
               onChange={(e) => setCPass(e.target.value)}
@@ -141,12 +164,6 @@ const Formulario = () => {
         </button>
       </form>
 
-      {error || !algunCampoLleno ? null : (
-        <>
-          <h1>Datos ingresados</h1>
-          {nombre} - {email} - {password} - {cpassword}
-        </>
-      )}
 
     </>
   );
