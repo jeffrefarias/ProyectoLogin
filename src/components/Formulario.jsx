@@ -2,23 +2,23 @@ import { useState } from "react";
 
 const Formulario = () => {
   const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPass] = useState("");
+  const [cpassword, setCPass] = useState("");
   const [error, setError] = useState(false)
 
   const validarDatos = (e) => {
     e.preventDefault()
 
-    if (nombre === '' || apellido === '' || edad === '' || email === '') {
+    if (nombre === '' || email === '' || password === '' || cpassword === '') {
       setError(true)
       return
     }
     setError(false)
     setNombre('')
-    setApellido('')
-    setEdad('')
     setEmail('')
+    setPass('')
+    setCPass('')
   }
 
   const validarEmail = (email) => {
@@ -27,71 +27,68 @@ const Formulario = () => {
     return emailPattern.test(email);
   };
 
-  const algunCampoLleno = nombre !== "" || apellido !== "" || edad !== "" || (email !== "" && validarEmail(email));
+  const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email))  || password !== "" || cpassword !== "";
 
   return (
     <>
-      <form className="formulario" style={{ border: "1px solid red" }} onSubmit={validarDatos}>
+    
+      <form className="formulario" onSubmit={validarDatos}>
         {error ? <p>Todos los campos son obligatorios</p> : null}
+        {error && !validarEmail(email) ? <p>Debe ingresar un email válido</p> : null}
         <div className="row form-group d-flex mt-3">
-          <div className="col-3">
-            <label>Nombre</label>
-          </div>
-          <div className="col-9">
+          <div className="col">
             <input
               type="text"
               name="nombre"
               className="form-control"
               onChange={(e) => setNombre(e.target.value)}
               value={nombre}
+              autoComplete="off"
+              placeholder="Nombre"
             />
           </div>
         </div>
         <div className=" row form-group d-flex mt-3">
-          <div className="col-3">
-            <label>Apellido</label>
-
-          </div>
-          <div className="col-9">
+          <div className="col">
             <input
               type="text"
-              name="apellido"
+              name="Email"
               className="form-control"
-              onChange={(e) => setApellido(e.target.value)}
-              value={apellido}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              autoComplete="off"
+              placeholder="Email"
             />
           </div>
         </div>
         <div className="row form-group d-flex mt-3">
-          <div className="col-3">
-            <label>Edad</label>
-          </div>
-          <div className="col-9">
+          <div className="col">
             <input
               type="text"
-              name="edad"
+              name="password"
               className="form-control"
-              onChange={(e) => setEdad(e.target.value)}
-              value={edad}
+              onChange={(e) => setPass(e.target.value)}
+              value={password}
+              autoComplete="off"
+              placeholder="Contraseña"
             />
           </div>
         </div>
-        <div className=" row form-group d-flex mt-3">
-          <div className="col-3">
-            <label >Email</label>
-          </div>
-          <div className="col-9">
+        <div className=" row form-group d-flex mt-3">    
+          <div className="col">
             <input
               type="text"
-              name="email"
+              name="cpassword"
               className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => setCPass(e.target.value)}
+              value={cpassword}
+              autoComplete="off"
+              placeholder="Confirmar Contraseña"
             />
           </div>
 
         </div>
-        <button type="submit" className="btn btn-primary mt-3">
+        <button type="submit" className="form-control btn btn-success mt-3">
           Enviar
         </button>
       </form>
@@ -101,7 +98,7 @@ const Formulario = () => {
       {error || !algunCampoLleno ? null : (
         <>
           <h1>Datos ingresados</h1>
-          {nombre} - {apellido} - {edad} - {email}
+          {nombre} - {email} - {password} - {cpassword}
         </>
       )}
 

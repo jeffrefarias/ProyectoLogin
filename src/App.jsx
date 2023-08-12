@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Registro from './components/Registro'
@@ -12,9 +13,7 @@ function App() {
       <div>
         <SocialButton />
         <Registro />
-
       </div>
-
     </>
   )
 }

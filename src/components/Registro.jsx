@@ -4,7 +4,10 @@ import Formulario from "./Formulario";
 const Registro = () => {
  return (
     <>
-        <Formulario/>
+    <div className="bg-white p-4 rounded-5">
+    <Formulario/>
+
+    </div>
     </>
      ); 
 }
