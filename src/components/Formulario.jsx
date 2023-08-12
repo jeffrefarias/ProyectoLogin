@@ -3,6 +3,8 @@ import Alert from "./Alert";
 
 const Formulario = () => {
   const [nombre, setNombre] = useState("");
+  const [edad, setEdad] = useState("");
+  const [edadError, setEdadError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [cpassword, setCPass] = useState("");
@@ -13,23 +15,30 @@ const Formulario = () => {
     e.preventDefault()
 
     setErrorEmail(!validarEmail(email));
+    setEdadError(!validarEdad(edad));
 
-    if (nombre === '' || email === '' || password === '' || cpassword === '') {
+    if (nombre === '' || email === '' || password === '' || cpassword === '' || edad === '') {
       setError(true)
       return
     }
     setError(false)
     setNombre('')
+    setEdad('')
     setEmail('')
     setPass('')
     setCPass('')
-    setErrorEmail
+    setErrorEmail('')
+    
   }
 
   const validarEmail = (email) => {
-    // Expresión regular para verificar el formato del correo electrónico
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
+  };
+
+  const validarEdad = (edad) => {
+    const agePattern = /^(1[89]|[2-9]\d|\d{3,})$/;
+    return agePattern .test(edad);
   };
 
   const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email))  || password !== "" || cpassword !== "";
@@ -40,6 +49,7 @@ const Formulario = () => {
       <form className="formulario" onSubmit={validarDatos}>
       {error ?  <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
       {errorEmail ?  <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
+      {edadError ?  <Alert message="Debe ser mayor a 18 años" type="danger" show={error && !validarEdad(edad)} /> : null}
        
         
         <div className="row form-group d-flex mt-3">
@@ -52,6 +62,19 @@ const Formulario = () => {
               value={nombre}
               autoComplete="off"
               placeholder="Nombre"
+            />
+          </div>
+        </div>
+        <div className="row form-group d-flex mt-3">
+          <div className="col">
+            <input
+              type="text"
+              name="edad"
+              className="form-control"
+              onChange={(e) => setEdad(e.target.value)}
+              value={edad}
+              autoComplete="off"
+              placeholder="Edad"
             />
           </div>
         </div>
