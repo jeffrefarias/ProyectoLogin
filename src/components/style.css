@@ -1,0 +1,19 @@
+.circle-container {
+    display: inline-block;
+    margin: 10px; 
+}
+
+.circle-icon {
+    width: 70px;
+    height: 70px; 
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-icon i {
+    font-size: 2rem;
+}
+
