@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Alert from "./Alert";
 
 const Formulario = () => {
   const [nombre, setNombre] = useState("");
@@ -33,8 +34,10 @@ const Formulario = () => {
     <>
     
       <form className="formulario" onSubmit={validarDatos}>
-        {error ? <p>Todos los campos son obligatorios</p> : null}
-        {error && !validarEmail(email) ? <p>Debe ingresar un email válido</p> : null}
+      {error ?  <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
+      {error ?  <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
+       
+        
         <div className="row form-group d-flex mt-3">
           <div className="col">
             <input
@@ -59,6 +62,17 @@ const Formulario = () => {
               autoComplete="off"
               placeholder="Email"
             />
+          </div>
+        </div>
+        <div className="row form-group d-flex mt-3 ">
+          <div>
+            <select className="form-select" aria-label="Seleccione su género">
+            <option selected>Seleccione su género</option>
+            <option value="hombre">Hombre</option>
+            <option value="mujer">Mujer</option>
+            <option value="transexual">Transexual</option>
+            <option value="helicoptero">Helicóptero Apache</option>
+          </select>
           </div>
         </div>
         <div className="row form-group d-flex mt-3">
@@ -92,8 +106,6 @@ const Formulario = () => {
           Enviar
         </button>
       </form>
-      {/* <h1>Datos ingresados</h1>   
-      {nombre} - {apellido} - {edad} - {email} */}
 
       {error || !algunCampoLleno ? null : (
         <>
