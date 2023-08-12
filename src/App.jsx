@@ -7,22 +7,20 @@ import Alert from './components/Alert';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  // const [alertMessage, setAlertMessage] = useState('');
-  // const [alertType, setAlertType] = useState('');
+import Registro from './components/Registro'
+import './App.css'
+import SocialButton from './components/SocialButton';
 
-  // const handleRegistration = (message, type) => {
-  //   setAlertMessage(message);
-  //   setAlertType(type);
-  // };
+function App() {
 
   return (
-    <div>
-      <SocialButton/>
-      <Registro/>
-      {/* <Alert message={alertMessage} type={alertType} /> */}
-    </div>
-  );
+    <>
+      <div>
+        <SocialButton />
+        <Registro />
+      </div>
+    </>
+  )
 }
 
 
