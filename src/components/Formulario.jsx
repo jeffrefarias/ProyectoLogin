@@ -8,17 +8,19 @@ const Formulario = () => {
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [cpassword, setCPass] = useState("");
+  const [genero, setGenero] = useState("Seleccione su género");
   const [error, setError] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false);
-  
-
+  const [errorGenero, setErrorGenero] = useState(false);
 
   const validarDatos = (e) => {
     e.preventDefault()
 
     setErrorEmail(!validarEmail(email));
+    setErrorGenero(genero === "Seleccione su género");
 
-    if (nombre === '' || email === '' || password === '' || cpassword === '') {
+
+    if (nombre === '' || email === '' || password === '' || cpassword === '' ||genero === 'Seleccione su género') {
       setError(true)
       return
     }
@@ -27,7 +29,9 @@ const Formulario = () => {
     setEmail('')
     setPass('')
     setCPass('')
-    setErrorEmail
+    setErrorEmail()
+    setErrorGenero(false);
+    setGenero("Seleccione su género");
   }
 
 
@@ -58,7 +62,7 @@ const Formulario = () => {
       <form className="formulario" onSubmit={validarDatos}>
       {error ?  <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
       {errorEmail ?  <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
-       
+      {errorGenero ? (<Alert message="Debe seleccionar un género" type="danger" show={error && genero === "Seleccione su género"} />) : null} 
         
         <div className="row form-group d-flex mt-3">
           <div className="col">
@@ -101,7 +105,9 @@ const Formulario = () => {
         </div>
         <div className="row form-group d-flex mt-3 ">
           <div>
-            <select className="form-select" aria-label="Seleccione su género">
+          <select
+              className={`form-select ${errorGenero ? "is-invalid" : ""}`}
+              aria-label="Seleccione su género" value={genero} onChange={(e) => setGenero(e.target.value)} >
             <option selected name="select">Seleccione su género</option>
             <option value="hombre">Hombre</option>
             <option value="mujer">Mujer</option>
