@@ -9,7 +9,9 @@ const Formulario = () => {
   const [password, setPass] = useState("");
   const [cpassword, setCPass] = useState("");
   const [error, setError] = useState(false)
-  const [errorEmail, setErrorEmail] = useState(false)
+  const [errorEmail, setErrorEmail] = useState(false);
+  
+
 
   const validarDatos = (e) => {
     e.preventDefault()
