@@ -15,6 +15,7 @@ const Formulario = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorGenero, setErrorGenero] = useState(false);
 
+
   const validarDatos = (e) => {
     e.preventDefault()
 
@@ -57,13 +58,16 @@ const Formulario = () => {
   //   return genero !== "";
   // };
 
-  const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email)) || password !== "" || cpassword !== "";
+  const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email)) || password !== "";
 
   return (
     <>
+      {/* _Inicio_ */}
       <h1>Crea una cuenta</h1>
       <SocialButton />
       <p>O usa tu email para registrarte</p>
+
+      {/* _Validacion_ */}
       <form className="formulario" onSubmit={validarDatos}>
         {error ? <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
         {errorEmail ? <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
@@ -108,6 +112,7 @@ const Formulario = () => {
             />
           </div>
         </div>
+
         <div className="row form-group d-flex mt-3 ">
           <div>
             <select
@@ -146,8 +151,9 @@ const Formulario = () => {
               placeholder="Confirmar Contraseña"
             />
           </div>
-
         </div>
+
+        {/* _Botones_  */}
         <button type="submit" className="form-control btn btn-success mt-3">
           Enviar
         </button>
@@ -156,7 +162,7 @@ const Formulario = () => {
           Iniciar sesión
         </button>
 
-      </form>
+      </form >
 
 
     </>
