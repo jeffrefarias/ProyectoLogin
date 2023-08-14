@@ -1,4 +1,6 @@
 import { useState } from "react";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import SocialButton from './SocialButton';
 import Alert from "./Alert";
 
 const Formulario = () => {
@@ -20,7 +22,7 @@ const Formulario = () => {
     setErrorGenero(genero === "Seleccione su género");
 
 
-    if (nombre === '' || email === '' || password === '' || cpassword === '' ||genero === 'Seleccione su género') {
+    if (nombre === '' || email === '' || password === '' || cpassword === '' || genero === 'Seleccione su género') {
       setError(true)
       return
     }
@@ -31,6 +33,7 @@ const Formulario = () => {
     setCPass('')
     setErrorEmail()
     setErrorGenero(false);
+    setEdad('');
     setGenero("Seleccione su género");
   }
 
@@ -54,16 +57,18 @@ const Formulario = () => {
   //   return genero !== "";
   // };
 
-  const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email))  || password !== "" || cpassword !== "";
+  const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email)) || password !== "" || cpassword !== "";
 
   return (
     <>
-
+      <h1>Crea una cuenta</h1>
+      <SocialButton />
+      <p>O usa tu email para registrarte</p>
       <form className="formulario" onSubmit={validarDatos}>
-      {error ?  <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
-      {errorEmail ?  <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
-      {errorGenero ? (<Alert message="Debe seleccionar un género" type="danger" show={error && genero === "Seleccione su género"} />) : null} 
-        
+        {error ? <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
+        {errorEmail ? <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
+        {errorGenero ? (<Alert message="Debe seleccionar un género" type="danger" show={error && genero === "Seleccione su género"} />) : null}
+
         <div className="row form-group d-flex mt-3">
           <div className="col">
             <input
@@ -105,15 +110,15 @@ const Formulario = () => {
         </div>
         <div className="row form-group d-flex mt-3 ">
           <div>
-          <select
+            <select
               className={`form-select ${errorGenero ? "is-invalid" : ""}`}
               aria-label="Seleccione su género" value={genero} onChange={(e) => setGenero(e.target.value)} >
-            <option selected name="select">Seleccione su género</option>
-            <option value="hombre">Hombre</option>
-            <option value="mujer">Mujer</option>
-            <option value="transexual">Transexual</option>
-            <option value="helicoptero">Helicóptero Apache</option>
-          </select>
+              <option selected name="select">Seleccione su género</option>
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
+              <option value="transexual">Transexual</option>
+              <option value="helicoptero">Helicóptero Apache</option>
+            </select>
           </div>
         </div>
         <div className="row form-group d-flex mt-3">
@@ -146,6 +151,7 @@ const Formulario = () => {
         <button type="submit" className="form-control btn btn-success mt-3">
           Enviar
         </button>
+        <p>¿Ya tienes una cuenta? Ingresa para continuar</p>
         <button type="button" className="form-control btn btn-success mt-3">
           Iniciar sesión
         </button>
