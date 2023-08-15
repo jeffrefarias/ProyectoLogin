@@ -1,7 +1,7 @@
 import { useState } from "react";
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import SocialButton from './SocialButton';
 import Alert from "./Alert";
+import { useNavigate } from 'react-router-dom';
 
 const Formulario = () => {
   const [nombre, setNombre] = useState("");
@@ -10,12 +10,12 @@ const Formulario = () => {
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [cpassword, setCPass] = useState("");
-const [genero, setGenero] = useState("Seleccione su género");
+  const [genero, setGenero] = useState("Seleccione su género");
   const [error, setError] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
   const [errorPass, setErrorPass] = useState(false)
   const [errorGenero, setErrorGenero] = useState(false);
-
+  const navigate = useNavigate();
 
 
 
@@ -27,24 +27,32 @@ const [successMessage, setSuccessMessage] = useState(false);
     setErrorEmail(!validarEmail(email));
     setEdadError(!validarEdad(edad));
     setErrorPass(!validarPass(password, cpassword));
-  
+    setErrorGenero(genero === 'Seleccione su género');
 
 
     if (nombre === '' || email === '' || password === '' || cpassword === '' || edad === '' || genero === 'Seleccione su género') {
       setError(true)
       return
     }
-    setError(false);
-    setNombre('');
-    setEdad('');
-    setEmail('');
-    setPass('');
-    setCPass('');
-    setErrorEmail(false);
-    setErrorGenero(false);
-    setEdad('');
-    setGenero("Seleccione su género");
-    setSuccessMessage(true);
+
+    if (!error && !errorEmail  && !edadError && !errorPass && !errorGenero) {
+
+      setError(false);
+      setNombre('');
+      setEdad('');
+      setEmail('');
+      setPass('');
+      setCPass('');
+      setErrorEmail(false);
+      setErrorGenero(false);
+      setEdad('');
+      setGenero("Seleccione su género");
+      setSuccessMessage(true);
+
+      navigate('/InicioSesion'); 
+    }
+
+    
   }
 
 
@@ -63,9 +71,6 @@ const [successMessage, setSuccessMessage] = useState(false);
     return password === cpassword
   };
 
-  // const validarGenero = (genero) => {
-  //   return genero !== "";
-  // };
 
 
   return (
@@ -170,13 +175,10 @@ const [successMessage, setSuccessMessage] = useState(false);
 
         </div>
         <button type="submit" className="form-control btn btn-success mt-3">Enviar</button>
-        <p>¿Ya tienes una cuenta? <a href="">Ingresa Aquí</a></p>
+        <p>¿Ya tienes una cuenta? <a href="">Registrar</a></p>
        
       </form >
 
-      {/* var url = "@Url.Action("NuevaNecesidadEditar","LeyPresupuestaria", new {id="i-id"})";
-                        url = url.replace("i-id", response.mensaje);
-                        window.location.href = url; */}
 
 
     </>
