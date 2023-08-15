@@ -10,36 +10,41 @@ const Formulario = () => {
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [cpassword, setCPass] = useState("");
-  const [genero, setGenero] = useState("Seleccione su género");
+const [genero, setGenero] = useState("Seleccione su género");
   const [error, setError] = useState(false)
-  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false)
+  const [errorPass, setErrorPass] = useState(false)
   const [errorGenero, setErrorGenero] = useState(false);
 
-  const [successMessage, setSuccessMessage] = useState(false);
+
+
+
+const [successMessage, setSuccessMessage] = useState(false);
 
   const validarDatos = (e) => {
     e.preventDefault()
 
     setErrorEmail(!validarEmail(email));
-    setErrorGenero(genero === "Seleccione su género");
+    setEdadError(!validarEdad(edad));
+    setErrorPass(!validarPass(password, cpassword));
+  
 
 
-    if (nombre === '' || email === '' || password === '' || cpassword === '' || genero === 'Seleccione su género') {
+    if (nombre === '' || email === '' || password === '' || cpassword === '' || edad === '' || genero === 'Seleccione su género') {
       setError(true)
       return
     }
-    setError(false)
-    setNombre('')
-    setEmail('')
-    setPass('')
-    setCPass('')
-    setErrorEmail()
+    setError(false);
+    setNombre('');
+    setEdad('');
+    setEmail('');
+    setPass('');
+    setCPass('');
+    setErrorEmail(false);
     setErrorGenero(false);
     setEdad('');
     setGenero("Seleccione su género");
-
     setSuccessMessage(true);
-
   }
 
 
@@ -62,23 +67,23 @@ const Formulario = () => {
   //   return genero !== "";
   // };
 
-  const algunCampoLleno = nombre !== "" || (email !== "" && validarEmail(email)) || password !== "";
 
   return (
     <>
-      {/* _Inicio_ */}
+{/* _Inicio_ */}
       <h1>Crea una cuenta</h1>
       <SocialButton />
       <p>O usa tu email para registrarte</p>
 
-      {/* _Validacion_ */}
       <form className="formulario" onSubmit={validarDatos}>
         {error ? <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
-        {errorEmail ? <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
+        {errorEmail ? <Alert message="Debe ingresar un email válido" type="danger" show={!validarEmail(email)} /> : null}
+        {edadError ? <Alert message="Debe ser mayor a 18 años" type="danger" show={!validarEdad(edad)} /> : null}
+        {errorPass ? <Alert message="Ambas contraseñas deben coincidir " type="danger" show={!validarPass(password, cpassword)} /> : null}
         {errorGenero ? (<Alert message="Debe seleccionar un género" type="danger" show={error && genero === "Seleccione su género"} />) : null}
+        
 
-
-        {/* _Mensaje registro éxitoso */}
+{/* _Mensaje registro éxitoso */}
         {successMessage && (
           <div className="alert alert-success mt-3">
             El registro ha sido exitoso
@@ -124,7 +129,6 @@ const Formulario = () => {
             />
           </div>
         </div>
-
         <div className="row form-group d-flex mt-3 ">
           <div>
             <select
@@ -163,18 +167,16 @@ const Formulario = () => {
               placeholder="Confirmar Contraseña"
             />
           </div>
+
         </div>
-
-        {/* _Botones_  */}
-        <button type="submit" className="form-control btn btn-success mt-3">
-          Enviar
-        </button>
-        <p>¿Ya tienes una cuenta? Ingresa para continuar</p>
-        <button type="button" className="form-control btn btn-success mt-3">
-          Iniciar sesión
-        </button>
-
+        <button type="submit" className="form-control btn btn-success mt-3">Enviar</button>
+        <p>¿Ya tienes una cuenta? <a href="">Ingresa Aquí</a></p>
+       
       </form >
+
+      {/* var url = "@Url.Action("NuevaNecesidadEditar","LeyPresupuestaria", new {id="i-id"})";
+                        url = url.replace("i-id", response.mensaje);
+                        window.location.href = url; */}
 
 
     </>
