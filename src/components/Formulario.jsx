@@ -15,6 +15,7 @@ const Formulario = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorGenero, setErrorGenero] = useState(false);
 
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const validarDatos = (e) => {
     e.preventDefault()
@@ -36,6 +37,9 @@ const Formulario = () => {
     setErrorGenero(false);
     setEdad('');
     setGenero("Seleccione su género");
+
+    setSuccessMessage(true);
+
   }
 
 
@@ -72,6 +76,14 @@ const Formulario = () => {
         {error ? <Alert message="Todos los campos son obligatorios" type="danger" show={error} /> : null}
         {errorEmail ? <Alert message="Debe ingresar un email válido" type="danger" show={error && !validarEmail(email)} /> : null}
         {errorGenero ? (<Alert message="Debe seleccionar un género" type="danger" show={error && genero === "Seleccione su género"} />) : null}
+
+
+        {/* _Mensaje registro éxitoso */}
+        {successMessage && (
+          <div className="alert alert-success mt-3">
+            El registro ha sido exitoso
+          </div>)}
+
 
         <div className="row form-group d-flex mt-3">
           <div className="col">
