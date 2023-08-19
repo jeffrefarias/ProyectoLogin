@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SocialButton from './SocialButton';
 import Alert from "./Alert";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const Formulario = () => {
   const [nombre, setNombre] = useState("");
@@ -15,7 +15,7 @@ const Formulario = () => {
   const [errorEmail, setErrorEmail] = useState(false)
   const [errorPass, setErrorPass] = useState(false)
   const [errorGenero, setErrorGenero] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
 
@@ -49,7 +49,6 @@ const [successMessage, setSuccessMessage] = useState(false);
       setGenero("Seleccione su género");
       setSuccessMessage(true);
 
-      navigate('/InicioSesion'); 
     }
 
     
@@ -88,11 +87,13 @@ const [successMessage, setSuccessMessage] = useState(false);
         {errorGenero ? (<Alert message="Debe seleccionar un género" type="danger" show={error && genero === "Seleccione su género"} />) : null}
         
 
-{/* _Mensaje registro éxitoso */}
-        {successMessage && (
-          <div className="alert alert-success mt-3">
-            El registro ha sido exitoso
-          </div>)}
+
+
+      {/* _Mensaje registro éxitoso */}
+      {successMessage && (
+        <div className="alert alert-success mt-3">
+          El registro ha sido exitoso
+        </div>)}
 
 
         <div className="row form-group d-flex mt-3">
@@ -111,7 +112,7 @@ const [successMessage, setSuccessMessage] = useState(false);
         <div className="row form-group d-flex mt-3">
           <div className="col">
             <input
-              type="text"
+              type="number"
               name="edad"
               className="form-control"
               onChange={(e) => setEdad(e.target.value)}
@@ -174,8 +175,8 @@ const [successMessage, setSuccessMessage] = useState(false);
           </div>
 
         </div>
-        <button type="submit" className="form-control btn btn-success mt-3">Enviar</button>
-        <p>¿Ya tienes una cuenta? <a href="">Registrar</a></p>
+        <button type="submit" className="form-control btn btn-success mt-3">Registrar</button>
+        <p>¿Ya tienes una cuenta? <a href="">Inicia Sesion </a></p>
        
       </form >
 
